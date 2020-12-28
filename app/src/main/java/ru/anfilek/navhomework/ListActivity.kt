@@ -34,6 +34,10 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun startCameraFeature() {
+        // check camera permission
+        // handle the check result
+        // show dialog if it is needed
+        // feel free to customise the button if it is needed
         return when {
             Build.VERSION.SDK_INT < Build.VERSION_CODES.M ->
                 startActivity(Intent(this, CameraActivity::class.java))
