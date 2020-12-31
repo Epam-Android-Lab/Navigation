@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Navigation</string>
+    <string name="no_rationale">No rationale</string>
+    <string name="we_value_your_decision">We value your decision</string>
+    <string name="features_disabled">However, some features related to the use of the camera may not be available</string>
+    <string name="i_understand">I understand</string>
+    <string name="need_permission">We can\'t run the camera without your permission</string>
+    <string name="no_thanks">No thanks</string>
+    <string name="retry">Ask me again</string>
 </resources>

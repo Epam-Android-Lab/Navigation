@@ -1,5 +1,6 @@
 package ru.anfilek.navhomework
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +22,15 @@ class LoginActivity : AppCompatActivity() {
     private fun checkLoginFlow() {
         if (userLogin.isUserLoggedIn()) {
             // close this activity and open ListActivity
+            startActivity(Intent(this, ListActivity::class.java))
+            finish()
         }
     }
 
     private fun performLogin() {
         userLogin.setUserLoggedIn()
         // close this activity and open ListActivity
+        startActivity(Intent(this, ListActivity::class.java))
+        finish()
     }
 }
