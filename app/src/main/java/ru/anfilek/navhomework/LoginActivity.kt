@@ -4,16 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import ru.anfilek.navhomework.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
     private val userLogin: UserLogin by lazy { UserLogin(this) }
 
+    private val binding: ActivityLoginBinding by lazy {
+        val tmpBinding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(tmpBinding.root)
+        tmpBinding
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        findViewById<Button>(R.id.button).setOnClickListener {
+        binding.button.setOnClickListener {
             performLogin()
         }
         checkLoginFlow()

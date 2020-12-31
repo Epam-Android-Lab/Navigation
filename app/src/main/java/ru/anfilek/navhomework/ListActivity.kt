@@ -11,20 +11,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ru.anfilek.navhomework.databinding.ActivityListBinding
 import kotlin.random.Random
 import kotlin.random.nextInt
 
 class ListActivity : AppCompatActivity(), IButtonRetryListener {
+
+    private val binding: ActivityListBinding by lazy {
+        val tmpBinding = ActivityListBinding.inflate(layoutInflater)
+        setContentView(tmpBinding.root)
+        tmpBinding
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
 
-        findViewById<FloatingActionButton>(R.id.fabStartCamera).setOnClickListener {
+        binding.fabStartCamera.setOnClickListener {
             startCameraFeature()
         }
 
-        findViewById<Button>(R.id.buttonItem).setOnClickListener {
+        binding.buttonItem.setOnClickListener {
             startItemActivity()
         }
 
@@ -76,7 +83,7 @@ class ListActivity : AppCompatActivity(), IButtonRetryListener {
         CAMERA_PERMISSION_REQUEST_CODE
     )
 
-    private fun showExplanation(withRationale: Boolean = false){
+    private fun showExplanation(withRationale: Boolean = false) {
         ExplanationDialogFragment.newInstance(withRationale).show(supportFragmentManager, null)
     }
 

@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import ru.anfilek.navhomework.databinding.FragmentDialogWithNoRationaleBinding
+import ru.anfilek.navhomework.databinding.FragmentDialogWithRationaleBinding
 
 private const val ARG_PARAM1 = "rationale"
 
 class ExplanationDialogFragment : DialogFragment() {
     private var withRationale: Boolean = false
+
+    private var bindingWithRationale: FragmentDialogWithRationaleBinding? = null
+    private var bindingWithNoRationale: FragmentDialogWithNoRationaleBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +40,26 @@ class ExplanationDialogFragment : DialogFragment() {
         }
 
         return if (withRationale) {
-            inflater.inflate(R.layout.fragment_dialog_with_rationale, container, false)
+            bindingWithRationale = FragmentDialogWithRationaleBinding.inflate(inflater, container, false)
+            bindingWithRationale?.root
         } else {
-            inflater.inflate(R.layout.fragment_dialog_with_no_rationale, container, false)
+            bindingWithNoRationale = FragmentDialogWithNoRationaleBinding.inflate(inflater, container, false)
+            bindingWithNoRationale?.root
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.button_dismiss).setOnClickListener {
-            dialog?.dismiss()
-        }
         if (withRationale) {
-            view.findViewById<Button>(R.id.button_retry).setOnClickListener {
+            bindingWithRationale?.buttonRetry?.setOnClickListener {
                 (activity as IButtonRetryListener).clicked()
+                dialog?.dismiss()
+            }
+            bindingWithRationale?.buttonDismiss?.setOnClickListener {
+                dialog?.dismiss()
+            }
+        } else {
+            bindingWithNoRationale?.buttonDismiss?.setOnClickListener {
                 dialog?.dismiss()
             }
         }

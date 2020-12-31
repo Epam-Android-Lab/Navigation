@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import ru.anfilek.navhomework.databinding.ActivityItemBinding
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -12,17 +13,22 @@ class ItemActivity : AppCompatActivity() {
 
     private val userLogin: UserLogin by lazy { UserLogin(this) }
 
+    private val binding: ActivityItemBinding by lazy {
+        val tmpBinding = ActivityItemBinding.inflate(layoutInflater)
+        setContentView(tmpBinding.root)
+        tmpBinding
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item)
 
         renderItemId()
 
-        findViewById<Button>(R.id.startAgainButton).setOnClickListener {
+        binding.startAgainButton.setOnClickListener {
             startMeAgain()
         }
 
-        findViewById<Button>(R.id.logout).setOnClickListener {
+        binding.logout.setOnClickListener {
             logout()
         }
     }
@@ -30,7 +36,7 @@ class ItemActivity : AppCompatActivity() {
     private fun renderItemId() {
         // get id from arguments and set it in the tvItemId
         val itemId = intent.getIntExtra(ListActivity.RANDOM_ITEM_KEY, 0)
-        findViewById<TextView>(R.id.tvItemId).text = itemId.toString()
+        binding.tvItemId.text = itemId.toString()
     }
 
     private fun startMeAgain() {
