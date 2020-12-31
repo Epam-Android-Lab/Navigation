@@ -27,6 +27,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv" />
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonItem">
+
+        <RadioButton
+            android:id="@+id/my_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/my_camera" />
+
+        <RadioButton
+            android:id="@+id/custom_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_camera" />
+
+    </RadioGroup>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabStartCamera"
         android:layout_width="wrap_content"
