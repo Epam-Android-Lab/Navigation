@@ -5,17 +5,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.widget.Button
+import android.provider.MediaStore
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.anfilek.navhomework.databinding.ActivityListBinding
 import kotlin.random.Random
 import kotlin.random.nextInt
 
 class ListActivity : AppCompatActivity(), IButtonRetryListener {
+    private var cameraId = R.id.my_camera
 
     private val binding: ActivityListBinding by lazy {
         val tmpBinding = ActivityListBinding.inflate(layoutInflater)
@@ -35,6 +36,17 @@ class ListActivity : AppCompatActivity(), IButtonRetryListener {
             startItemActivity()
         }
 
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.my_camera -> {
+                    cameraId = R.id.my_camera
+                }
+                R.id.custom_camera -> {
+                    cameraId = R.id.custom_camera
+                }
+            }
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -44,10 +56,26 @@ class ListActivity : AppCompatActivity(), IButtonRetryListener {
         // show dialog if it is needed
         // feel free to customise the button if it is needed
         check()
+        //startCameraActivity(usingCamera = cameraId)
     }
 
-    private fun startCameraActivity() {
-        startActivity(Intent(this, CameraActivity::class.java))
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun startCameraActivity(usingCamera: Int) {
+        when (usingCamera) {
+            R.id.my_camera -> {
+                startActivity(Intent(this, CameraActivity::class.java))
+            }
+            R.id.custom_camera -> {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val chooser = Intent.createChooser(intent, getString(R.string.chooser_title))
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(chooser)
+                } else {
+                    Toast.makeText(this, "No cameras found", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
 
     private fun startItemActivity() {
@@ -64,7 +92,7 @@ class ListActivity : AppCompatActivity(), IButtonRetryListener {
                 this,
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                startCameraActivity()
+                startCameraActivity(usingCamera = cameraId)
             }
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 showExplanation(withRationale = true)
@@ -99,7 +127,7 @@ class ListActivity : AppCompatActivity(), IButtonRetryListener {
                 if ((grantResults.isNotEmpty() &&
                             grantResults.first() == PackageManager.PERMISSION_GRANTED)
                 ) {
-                    startCameraActivity()
+                    startCameraActivity(usingCamera = cameraId)
                 } else {
                     showExplanation()
                 }

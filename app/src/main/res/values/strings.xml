@@ -7,4 +7,7 @@
     <string name="need_permission">We can\'t run the camera without your permission</string>
     <string name="no_thanks">No thanks</string>
     <string name="retry">Ask me again</string>
+    <string name="my_camera">My camera</string>
+    <string name="custom_camera">Custom camera</string>
+    <string name="chooser_title">Choose what camera you\'d like to use</string>
 </resources>
