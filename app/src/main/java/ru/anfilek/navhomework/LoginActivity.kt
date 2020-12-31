@@ -52,12 +52,22 @@ class LoginActivity : AppCompatActivity() {
         // close this activity and open ListActivity
         userLogin.setUserLoggedIn()
 
-        if (editTextTextPersonName.text.isNotEmpty() && isValidEmail(editTextTextPersonName.text.toString()) &&
+        if (editTextTextPersonName.text.isNotEmpty() &&
             editTextTextPassword.text.isNotEmpty()
         ) {
-            var toActivityListIntent: Intent = Intent(this, ListActivity::class.java)
-            finish()
-            startActivity(toActivityListIntent)
+            if (isValidEmail(editTextTextPersonName.text.toString())){
+                var toActivityListIntent: Intent = Intent(this, ListActivity::class.java)
+                finish()
+                startActivity(toActivityListIntent)
+            }
+            else{
+                var toast = Toast.makeText(
+                    this,
+                    "Неправильная форма логина, форма должна соответствовать email форме",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
         } else {
             var toast = Toast.makeText(
                 this,
