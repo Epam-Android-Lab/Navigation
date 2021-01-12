@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random
 
 class ItemActivity : AppCompatActivity() {
 
@@ -19,7 +18,7 @@ class ItemActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tvItemId).text = intent.getDoubleExtra(
             "ID",
-            1234.5
+            getString(R.string.default_value_for_intent).toDouble()
         ).toString()
 
         findViewById<Button>(R.id.startAgainButton).setOnClickListener {
@@ -39,6 +38,7 @@ class ItemActivity : AppCompatActivity() {
 
         val reloadActivityIntent = Intent(this, ItemActivity::class.java)
         reloadActivityIntent.putExtra("ID", renderItemId())
+        finish()
         startActivity(reloadActivityIntent)
     }
 

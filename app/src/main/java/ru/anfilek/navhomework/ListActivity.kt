@@ -1,13 +1,15 @@
 package ru.anfilek.navhomework
 
-import android.content.ClipData
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Button
 import android.widget.RadioButton
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,7 +26,7 @@ class ListActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.buttonItem).setOnClickListener {
-           startItemActivity()
+            startItemActivity()
         }
 
     }
@@ -36,12 +38,14 @@ class ListActivity : AppCompatActivity() {
 
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
             openCamera()
-        } else {
+        } else if (permissionStatus == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(
                 this, arrayOf("android.permission.CAMERA"),
-                1
+                getString(R.string.request_code).toInt()
             )
         }
+
+
     }
 
     private fun startItemActivity() {
@@ -51,13 +55,12 @@ class ListActivity : AppCompatActivity() {
         startActivity(intentToItemActivity)
     }
 
-    private fun openCamera(){
-        if(findViewById<RadioButton>(R.id.radioButton3).isChecked){
+    private fun openCamera() {
+        if (findViewById<RadioButton>(R.id.radioButton3).isChecked) {
             val intentToCamera = Intent(this, CameraActivity::class.java)
             startActivity(intentToCamera)
-        }
-        else{
-            val intentToCamera = Intent(this, AnotherCamera ::class.java)
+        } else {
+            val intentToCamera = Intent(this, AnotherCamera::class.java)
             startActivity(intentToCamera)
         }
 
@@ -69,16 +72,20 @@ class ListActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            1 -> {
-                if (grantResults.size > 0
+            getString(R.string.request_code).toInt() -> {
+                if (grantResults.isNotEmpty()
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     // permission granted
                     openCamera()
-                } else {
-                    // permission denied
                 }
-                return
+                else{
+                    val myDialogFragment = MyDialogFragment()
+                    val manager = supportFragmentManager
+                    myDialogFragment.show(manager, "myDialog")
+                }
+
+                return 
             }
         }
     }

@@ -1,9 +1,7 @@
 package ru.anfilek.navhomework
 
 import android.content.Intent
-import android.os.Binder
 import android.os.Bundle
-import android.renderscript.ScriptGroup
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Button
@@ -29,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         editTextTextPersonName = findViewById(R.id.editTextTextPersonName)
         button = findViewById(R.id.button)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
 
         button.setOnClickListener {
             performLogin()
@@ -63,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
             else{
                 var toast = Toast.makeText(
                     this,
-                    "Неправильная форма логина, форма должна соответствовать email форме",
+                    getString(R.string.text_toast_login),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -71,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             var toast = Toast.makeText(
                 this,
-                "Не все поля введены",
+                getString(R.string.text_fault_login),
                 Toast.LENGTH_SHORT
             ).show()
         }
