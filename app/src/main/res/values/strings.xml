@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Navigation</string>
+    <string name="own_camera">own camera</string>
+    <string name="anothercam">AnotherCam</string>
+    <string name="another_camera">Another Camera</string>
+    <string name="default_value_for_intent">1234.5</string>
+    <string name="request_code">1</string>
+    <string name="text_toast_login">Неправильная форма логина, форма должна соответствовать email форме</string>
+    <string name="text_fault_login">Не все поля введены</string>
+    <string name="message_permission_denyed">Важное сообщение!</string>
+    <string name="message_for_user_info">Необходимо разрешение на использование камеры, для этого необходимо перейти в настройки.</string>
+    <string name="intent_settings">Перейти</string>
 </resources>

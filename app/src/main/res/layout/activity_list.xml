@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:noHistory="true"
     tools:context=".ListActivity">
 
     <TextView
@@ -36,6 +37,30 @@
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fabStartCamera"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
+            android:text="@string/own_camera" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/anothercam" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

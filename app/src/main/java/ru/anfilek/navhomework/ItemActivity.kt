@@ -1,7 +1,9 @@
 package ru.anfilek.navhomework
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ItemActivity : AppCompatActivity() {
@@ -12,6 +14,13 @@ class ItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
 
+
+
+        findViewById<TextView>(R.id.tvItemId).text = intent.getDoubleExtra(
+            "ID",
+            getString(R.string.default_value_for_intent).toDouble()
+        ).toString()
+
         findViewById<Button>(R.id.startAgainButton).setOnClickListener {
             startMeAgain()
         }
@@ -21,19 +30,22 @@ class ItemActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderItemId() {
-        // get id from arguments and set it in the tvItemId
+    private fun renderItemId(): Double {
+        return Math.random() * 10
     }
 
     private fun startMeAgain() {
-        // start the activity again.
-        // For user it should look like activity is just updated
-        // Do not forget to randomise new itemIt and put it as an argument.
+
+        val reloadActivityIntent = Intent(this, ItemActivity::class.java)
+        reloadActivityIntent.putExtra("ID", renderItemId())
+        finish()
+        startActivity(reloadActivityIntent)
     }
 
     private fun logout() {
         userLogin.setUserLoggedOut()
-        // go to login screen
-        // pay attention to backstack
+        val intentToLoginActivity = Intent(this, LoginActivity::class.java)
+        finish()
+        startActivity(intentToLoginActivity)
     }
 }
