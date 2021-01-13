@@ -1,15 +1,14 @@
 package ru.anfilek.navhomework
 
-import android.app.AlertDialog
-import android.app.Dialog
+
+import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Button
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,9 +16,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ListActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+
 
         findViewById<FloatingActionButton>(R.id.fabStartCamera).setOnClickListener {
             startCameraFeature()
@@ -34,19 +36,19 @@ class ListActivity : AppCompatActivity() {
 
     private fun startCameraFeature() {
         val permissionStatus =
-            ContextCompat.checkSelfPermission(this, "android.permission.CAMERA")
+            ActivityCompat.checkSelfPermission(this, "android.permission.CAMERA")
 
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
             openCamera()
-        } else if (permissionStatus == PackageManager.PERMISSION_DENIED) {
+        } else {
             ActivityCompat.requestPermissions(
-                this, arrayOf("android.permission.CAMERA"),
+                this,
+                arrayOf("android.permission.CAMERA"),
                 getString(R.string.request_code).toInt()
             )
         }
-
-
     }
+
 
     private fun startItemActivity() {
 
@@ -66,6 +68,7 @@ class ListActivity : AppCompatActivity() {
 
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -78,17 +81,13 @@ class ListActivity : AppCompatActivity() {
                 ) {
                     // permission granted
                     openCamera()
-                }
-                else{
+                } else {
                     val myDialogFragment = MyDialogFragment()
                     val manager = supportFragmentManager
                     myDialogFragment.show(manager, "myDialog")
                 }
-
-                return 
             }
+
         }
     }
-
-
 }
