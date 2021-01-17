@@ -111,6 +111,7 @@ class ListActivity : AppCompatActivity() {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location permission was granted", Toast.LENGTH_SHORT).show()
+                startCameraActivity()
             } else {
                 Toast.makeText(this, "Location permission was not granted", Toast.LENGTH_SHORT).show()
             }

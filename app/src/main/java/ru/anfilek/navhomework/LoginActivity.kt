@@ -15,21 +15,26 @@ class LoginActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             performLogin()
-            checkLoginFlow()
         }
+        checkLoginFlow()
     }
 
     private fun checkLoginFlow() {
         if (userLogin.isUserLoggedIn()) {
             val intent = Intent(this, ListActivity::class.java)
-            startActivity(intent)
             finish()
+            startActivity(intent)
             // close this activity and open ListActivity
         }
     }
 
     private fun performLogin() {
-        userLogin.setUserLoggedIn()
         // close this activity and open ListActivity
+        userLogin.setUserLoggedIn()
+        if (editTextTextPersonName.text.isNotEmpty() && editTextTextPassword.text.isNotEmpty()) {
+            val intent = Intent(this, ListActivity::class.java)
+            finish()
+            startActivity(intent)
+        }
     }
 }
